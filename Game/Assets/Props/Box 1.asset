@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfb37e66ec272e46b62ecdd656beec5, type: 3}
+  m_Name: Box 1
+  m_EditorClassIdentifier: 
+  PropSprite: {fileID: 21300000, guid: 2218d03b181d5c74e9237dd70520722c, type: 3}
+  PropSize: {x: 1, y: 1}
+  Corner: 1
+  NearWallUP: 0
+  NearWallDown: 0
+  NearWallRight: 0
+  NearWallLeft: 0
+  Inner: 0
+  PlacementQuantityMin: 1
+  PlacementQuantityMax: 1
+  PlaceAsGroup: 1
+  GroupMinCount: 1
+  GroupMaxCount: 3
+  IsBreakable: 1
+  Health: 1
+  possibleLootDrops:
+  - {fileID: 11400000, guid: d39b17e4e175c8b488803f3eda054696, type: 2}
+  - {fileID: 11400000, guid: d39b17e4e175c8b488803f3eda054696, type: 2}
