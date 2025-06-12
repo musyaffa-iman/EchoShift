@@ -188,4 +188,4 @@ The game uses a PostgreSQL database with the following tables:
 ## Acknowledgments
 
 - Unity Technologies for the game engine
-    - Asset creators for sprites and audio
+- Asset creators for sprites and audio
