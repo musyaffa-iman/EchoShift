@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     public static Player Instance { get; private set; }
+    public static Transform CurrentPlayer { get; private set; }
     private WeaponParent weaponParent;
     private Health playerHealth;
 
@@ -82,7 +83,5 @@ public class Player : MonoBehaviour
             playerHealth.OnDeathWithReference.RemoveListener(OnPlayerDied);
         }
     }
-
-    public static Transform CurrentPlayer { get; private set; }
 }
 

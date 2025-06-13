@@ -78,7 +78,9 @@ public abstract class AbstractDungeonGenerator : MonoBehaviour
         room.NearWallTilesDown.ExceptWith(room.CornerTiles);
         room.NearWallTilesLeft.ExceptWith(room.CornerTiles);
         room.NearWallTilesRight.ExceptWith(room.CornerTiles);
-    }    protected void AddRoomAndAnalyze(Room room)
+    }
+
+    protected void AddRoomAndAnalyze(Room room)
     {
         AnalyzeRoomStructure(room);
         dungeonData.Rooms.Add(room);
