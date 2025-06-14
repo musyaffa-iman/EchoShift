@@ -19,7 +19,10 @@ public class PropDestroyer : MonoBehaviour
     
     private void OnPropDestroyed(GameObject destroyer)
     {
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.objectBreak);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.objectBreak);
+        }
         if (propData != null && propData.possibleLootDrops.Count > 0)
         {
             DropLoot();

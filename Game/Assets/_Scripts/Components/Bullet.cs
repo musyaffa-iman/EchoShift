@@ -51,15 +51,6 @@ public class Bullet : MonoBehaviour
         {
             ReturnToPool();
         }
-        else if (other.CompareTag("Enemy") && other.gameObject != shooter)
-        {
-            Health enemyHealth = other.GetComponent<Health>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.GetHit(damage, shooter);
-            }
-            ReturnToPool();
-        }
     }
     
     private void ReturnToPool()

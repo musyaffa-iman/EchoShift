@@ -84,7 +84,6 @@ public class Enemy : MonoBehaviour
             if (levelManager != null)
             {
                 levelManager.AddScore(scoreValue);
-                Debug.Log($"[Enemy] Player killed enemy, awarded {scoreValue} points");
             }
         }
     }

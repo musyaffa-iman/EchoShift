@@ -9,6 +9,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void Setup(int finalScore = 0)
     {
+        Time.timeScale = 0f;
         if (finalScoreText != null)
         {
             finalScoreText.text = "Final Score: " + finalScore.ToString();

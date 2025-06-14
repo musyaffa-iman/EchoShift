@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BossPhase2 : StateMachineBehaviour
 {
-    [SerializeField] private float chaseDistance = 8f;
     [SerializeField] private int contactDamage = 1;
     [SerializeField] private float knockbackForce = 15f;
     [SerializeField] private float contactCooldown = 1.5f;
@@ -21,30 +20,25 @@ public class BossPhase2 : StateMachineBehaviour
     {        
         bossEnemy = animator.GetComponent<BossEnemy>();
         movement = animator.GetComponent<Movement>();
-        weaponParent = animator.GetComponentInChildren<WeaponParent>();
         bossCollider = animator.GetComponent<Collider2D>();
         
         if (Player.CurrentPlayer != null)
-        {
             player = Player.CurrentPlayer;
-        }
         else
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-                player = playerObj.transform;
-        }
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
         
         if (player == null)
         {
             Debug.LogWarning("[BossPhase2] Player not found!");
         }
         
-        if (bossCollider != null)
+        if (bossEnemy == null || movement == null || bossCollider == null)
         {
-            bossCollider.isTrigger = true;
+            Debug.LogError("[BossPhase2] Missing critical boss components! Disabling phase 2.");
+            return;
         }
-        
+
+        bossCollider.isTrigger = true;
         isInCooldown = false;
         lastContactTime = 0f;
     }
@@ -71,28 +65,13 @@ public class BossPhase2 : StateMachineBehaviour
         
         float distanceToPlayer = Vector2.Distance(player.position, animator.transform.position);
         
-        if (distanceToPlayer < chaseDistance)
+        Vector2 direction = (player.position - animator.transform.position).normalized;
+        if (movement != null)
         {
-            if (weaponParent != null)
-            {
-                weaponParent.PointerPosition = player.position;
-            }
-            
-            Vector2 direction = (player.position - animator.transform.position).normalized;
-            if (movement != null)
-            {
-                movement.SetMovementInput(direction);
-            }
-            
-            CheckContactDamage(animator);
+            movement.SetMovementInput(direction);
         }
-        else
-        {
-            if (movement != null)
-            {
-                movement.SetMovementInput(Vector2.zero);
-            }
-        }
+        
+        CheckContactDamage(animator);
     }
     
     private void CheckContactDamage(Animator animator)
@@ -108,24 +87,19 @@ public class BossPhase2 : StateMachineBehaviour
     
     private void ContactDamage()
     {
-        if (player == null || bossEnemy == null) return;
-        
         Health playerHealth = player.GetComponent<Health>();
-        if (playerHealth != null)
+        if (playerHealth == null)
         {
-            playerHealth.GetHit(contactDamage, bossEnemy.gameObject);
+            Debug.LogError("[BossPhase2] Player has no Health component!");
+            return;
         }
+        
+        playerHealth.GetHit(contactDamage, bossEnemy.gameObject);
         
         Knockback playerKnockback = player.GetComponent<Knockback>();
         if (playerKnockback != null)
         {
-            GameObject knockbackSource = new GameObject("TempKnockbackSource");
-            knockbackSource.transform.position = bossEnemy.transform.position;
-            
-            playerKnockback.PlayFeedback(knockbackSource);
-            
-            Object.Destroy(knockbackSource, 0.1f);
-            
+            playerKnockback.PlayFeedback(bossEnemy.gameObject);
         }
         else
         {

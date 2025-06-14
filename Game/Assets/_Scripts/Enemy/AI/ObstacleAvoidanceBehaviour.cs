@@ -20,10 +20,7 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
             float distanceToObstacle = directionToObstacle.magnitude;
 
             //calculate weight based on the distance Enemy<--->Obstacle
-            float weight
-                = distanceToObstacle <= agentColliderSize
-                ? 1
-                : (radius - distanceToObstacle) / radius;
+            float weight = distanceToObstacle <= agentColliderSize ? 1 : (radius - distanceToObstacle) / radius;
 
             Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
 

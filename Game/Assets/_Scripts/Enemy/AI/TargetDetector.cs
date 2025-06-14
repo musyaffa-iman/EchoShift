@@ -21,7 +21,7 @@ public class TargetDetector : Detector
 
         if (playerCollider != null)
         {
-            //Check if you see the player
+            //Check if it sees the player
             Vector2 direction = (playerCollider.transform.position - transform.position).normalized;
             RaycastHit2D hit = 
                 Physics2D.Raycast(transform.position, direction, targetDetectionRange, obstaclesLayerMask);

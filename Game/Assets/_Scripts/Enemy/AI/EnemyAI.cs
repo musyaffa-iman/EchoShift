@@ -82,18 +82,15 @@ public class EnemyAI : MonoBehaviour
                 //Attack logic
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
-                yield return new WaitForSeconds(attackDelay);
-                StartCoroutine(ChaseAndAttack());
+                yield return new WaitForSeconds(attackDelay);      
             }
             else
             {
                 //Chase logic
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                 yield return new WaitForSeconds(aiUpdateDelay);
-                StartCoroutine(ChaseAndAttack());
             }
-
+            StartCoroutine(ChaseAndAttack());
         }
-
     }
 }
