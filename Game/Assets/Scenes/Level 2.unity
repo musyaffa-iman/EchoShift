@@ -699,7 +699,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6ce2acb774231a4ca5c1e248010dae4, type: 2}
   - {fileID: 11400000, guid: c6fdcf46e1f9bf4408aee21ce1389688, type: 2}
   - {fileID: 11400000, guid: 8734734dea7b736478f9c05939d8b284, type: 2}
-  cornerPropPlacementChance: 0.7
+  cornerPropPlacementChance: 0.4
   propPrefab: {fileID: 8729725989044405708, guid: f82b3f98367fea14895e2ffcdfe6103e, type: 3}
   lootDropPrefab: {fileID: 5315272856236586466, guid: 0eb6c0c2d6e46254992c493fb0f4fc3b, type: 3}
   OnFinished:

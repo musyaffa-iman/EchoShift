@@ -1201,10 +1201,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 8400092325310688475, guid: 821c9eebf3397cd4598efbcea036d575, type: 3}
+  - {fileID: 8400092325310688475, guid: d0a78a6490186f446833195f34ea79d4, type: 3}
   playerPrefab: {fileID: 8400092325310688475, guid: 15ed7f46d179bc24ba9179b8a2e97f0c, type: 3}
   portalPrefab: {fileID: 3928071692545284935, guid: 0efd6ebadd49b4840b4adae4e1fbc5e2, type: 3}
-  roomEnemiesCount: 09000000
-  showGizmo: 0
+  roomEnemiesCount: 0a000000
+  showGizmo: 1
 --- !u!4 &1960188370
 Transform:
   m_ObjectHideFlags: 0
