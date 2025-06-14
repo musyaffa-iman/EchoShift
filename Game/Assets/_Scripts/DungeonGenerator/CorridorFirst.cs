@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
 
-// Updated CorridorFirst
 public class CorridorFirst : AbstractDungeonGenerator
 {
     [SerializeField] private int corridorLength = 14, corridorCount = 5;
@@ -83,7 +82,6 @@ public class CorridorFirst : AbstractDungeonGenerator
             roomPositions.UnionWith(roomFloor);
 
             Room room = new Room(roomPosition, roomFloor);
-            AnalyzeRoomStructure(room);
             dungeonData.Rooms.Add(room);
         }
         return roomPositions;
@@ -118,7 +116,6 @@ public class CorridorFirst : AbstractDungeonGenerator
                 roomFloors.UnionWith(roomFloor);
 
                 Room room = new Room(position, roomFloor);
-                AnalyzeRoomStructure(room);
                 dungeonData.Rooms.Add(room);
             }
         }

@@ -8,10 +8,14 @@ public class RoomDataExtractor : MonoBehaviour
     private DungeonData dungeonData;
 
     [SerializeField]
-    private bool showGizmo = false;    private void Awake()
+    private bool showGizmo = false;
+
+    private void Awake()
     {
         dungeonData = FindObjectOfType<DungeonData>();
-    }    public void ProcessRooms()
+    }
+
+    public void ProcessRooms()
     {
         if (dungeonData.Rooms == null)
         {

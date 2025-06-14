@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Updated RoomsFirst
 public class RoomsFirst : AbstractDungeonGenerator
 {
     [SerializeField] private int minRoomWidth = 4, minRoomHeight = 4;
@@ -14,12 +13,14 @@ public class RoomsFirst : AbstractDungeonGenerator
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
-    }    private void CreateRooms()
+    }
+
+    private void CreateRooms()
     {
         var roomList = ProceduralGenerationAlgorithms.BinarySpacePartition(
             new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)),
             minRoomWidth, minRoomHeight);
-        if (roomList == null || roomList.Count == 0 )
+        if (roomList == null || roomList.Count == 0)
         {
             return;
         }
@@ -30,18 +31,16 @@ public class RoomsFirst : AbstractDungeonGenerator
         foreach (var roomBounds in roomList)
         {
             HashSet<Vector2Int> roomFloor = CreateRoomFloor(roomBounds);
-            floor.UnionWith(roomFloor);            Vector2Int center = (Vector2Int)Vector3Int.RoundToInt(roomBounds.center);
+            floor.UnionWith(roomFloor); Vector2Int center = (Vector2Int)Vector3Int.RoundToInt(roomBounds.center);
             Room room = new Room(center, roomFloor);
-            
-            AnalyzeRoomStructure(room);
-            
+
             dungeonData.Rooms.Add(room);
             roomCenters.Add(center);
         }
 
         HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
         floor.UnionWith(corridors);
-        dungeonData.Path.UnionWith(corridors);        tilemapVisualizer.PaintFloorTiles(floor);
+        dungeonData.Path.UnionWith(corridors); tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
 
         // Process room data before prop placement

@@ -48,7 +48,7 @@ public static class ProceduralGenerationAlgorithms
             // Ensure room is large enough to be split
             if (room.size.x >= minWidth && room.size.y >= minHeight)
             {
-                bool splitHorizontally = (Random.value < 0.5f); // Randomly decide split direction
+                bool splitHorizontally = Random.value < 0.5f; // Randomly decide split direction
                 
                 if (splitHorizontally)
                 {

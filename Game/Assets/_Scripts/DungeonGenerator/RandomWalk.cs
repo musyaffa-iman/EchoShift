@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Updated RandomWalk
 public class RandomWalk : AbstractDungeonGenerator
 {
     [SerializeField] protected RandomWalkData rw_parameters;
@@ -21,7 +20,6 @@ public class RandomWalk : AbstractDungeonGenerator
         Vector2Int center = startPosition;
 
         Room room = new Room(center, floorPositions);
-        AnalyzeRoomStructure(room);
         dungeonData.Rooms.Add(room);
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
