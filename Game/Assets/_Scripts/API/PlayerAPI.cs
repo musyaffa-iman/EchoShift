@@ -5,12 +5,6 @@ using UnityEngine.Networking;
 using UnityEngine.Events;
 using System.Text;
 
-[Serializable]
-public class PlayerAuthenticatedEvent : UnityEvent<PlayerData> { }
-
-[Serializable]
-public class AuthenticationFailedEvent : UnityEvent<string> { }
-
 public class PlayerAPI : MonoBehaviour
 {
     private static PlayerAPI _instance;
@@ -121,22 +115,21 @@ public class PlayerAPI : MonoBehaviour
     {
         if (string.IsNullOrEmpty(username))
         {
-            Debug.LogError("[PlayerAPI] Username is null or empty!");
             OnLoginFailed?.Invoke("Username cannot be empty");
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            Debug.LogError("[PlayerAPI] Password is null or empty!");
             OnLoginFailed?.Invoke("Password cannot be empty");
             return;
         }
 
-        string json = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
-        string loginUrl = $"{baseUrl}/login";
+        // Use LoginRequest class instead of manual JSON
+        LoginRequest loginRequest = new LoginRequest(username, password);
+        string json = JsonUtility.ToJson(loginRequest);
 
-        StartCoroutine(APIHelper.PostCoroutine(loginUrl, json, OnPlayerLogin_Callback));
+        StartCoroutine(APIHelper.PostCoroutine(APIConfig.LOGIN_URL, json, OnPlayerLogin_Callback));
     }
 
     private void OnPlayerLogin_Callback(UnityWebRequest request)
@@ -179,8 +172,8 @@ public class PlayerAPI : MonoBehaviour
         currentPlayer = player;
         isLoggedIn = true;
         
-        PlayerPrefs.SetString("SessionToken", sessionToken);
-        PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(player));
+        PlayerPrefs.SetString(APIConfig.SESSION_TOKEN_KEY, sessionToken);
+        PlayerPrefs.SetString(APIConfig.PLAYER_DATA_KEY, JsonUtility.ToJson(player));
         PlayerPrefs.Save();
     }
     
@@ -192,8 +185,7 @@ public class PlayerAPI : MonoBehaviour
             return;
         }
         
-        string logoutUrl = $"{baseUrl}/logout";
-        StartCoroutine(LogoutCoroutine(logoutUrl));
+        StartCoroutine(LogoutCoroutine(APIConfig.LOGOUT_URL));
     }
     
     private IEnumerator LogoutCoroutine(string url)
@@ -218,8 +210,8 @@ public class PlayerAPI : MonoBehaviour
         currentSessionToken = null;
         currentPlayer = null;
         isLoggedIn = false;
-        PlayerPrefs.DeleteKey("SessionToken");
-        PlayerPrefs.DeleteKey("PlayerData");
+        PlayerPrefs.DeleteKey(APIConfig.SESSION_TOKEN_KEY);
+        PlayerPrefs.DeleteKey(APIConfig.PLAYER_DATA_KEY);
         PlayerPrefs.Save();
     }
     
@@ -231,8 +223,7 @@ public class PlayerAPI : MonoBehaviour
             return;
         }
         
-        string validateUrl = $"{baseUrl}/session/validate";
-        StartCoroutine(ValidateSessionCoroutine(validateUrl));
+        StartCoroutine(ValidateSessionCoroutine(APIConfig.SESSION_VALIDATE_URL));
     }
     
     private IEnumerator ValidateSessionCoroutine(string url)
@@ -282,8 +273,8 @@ public class PlayerAPI : MonoBehaviour
     
     public void RestoreSession()
     {
-        string savedToken = PlayerPrefs.GetString("SessionToken", "");
-        string savedPlayerData = PlayerPrefs.GetString("PlayerData", "");
+        string savedToken = PlayerPrefs.GetString(APIConfig.SESSION_TOKEN_KEY, "");
+        string savedPlayerData = PlayerPrefs.GetString(APIConfig.PLAYER_DATA_KEY, "");
         
         if (!string.IsNullOrEmpty(savedToken) && !string.IsNullOrEmpty(savedPlayerData))
         {

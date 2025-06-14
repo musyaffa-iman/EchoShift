@@ -5,14 +5,6 @@ using System.Collections;
 using UnityEngine.Networking;
 using System;
 
-[System.Serializable]
-public class RunListResponse
-{
-    public bool success;
-    public string message;
-    public List<RunResponse> data;
-}
-
 public class RunsManager : MonoBehaviour
 {
     [Header("UI References")]

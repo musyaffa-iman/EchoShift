@@ -3,64 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[Serializable]
-public class RunData
-{
-    public string runId;
-    public int score;
-    public float timeElapsed;
-    public int levelReached;
-    public bool isActive;
-    public bool isPaused;
-
-    public RunData()
-    {
-        runId = "";
-        score = 0;
-        timeElapsed = 0f;
-        levelReached = 1;
-        isActive = false;
-        isPaused = false;
-    }
-}
-
-[Serializable]
-public class RunResponse
-{
-    public string id;
-    public string playerId;
-    public float timeElapsed;
-    public int score;
-    public int levelReached;
-}
-
-[Serializable]
-public class RunStartedEvent : UnityEvent<RunData> { }
-
-[Serializable]
-public class RunUpdatedEvent : UnityEvent<RunData> { }
-
-[Serializable]
-public class RunEndedEvent : UnityEvent<RunData> { }
-
-[Serializable]
-public class RunFailedEvent : UnityEvent<string> { }
-
-[Serializable]
-public class RunRequestData
-{
-    public int score;
-    public float timeElapsed;
-    public int levelReached;
-
-    public RunRequestData(int score, float timeElapsed, int levelReached)
-    {
-        this.score = score;
-        this.timeElapsed = timeElapsed;
-        this.levelReached = levelReached;
-    }
-}
-
 public class RunTracker : MonoBehaviour
 {
     private static RunTracker _instance;
