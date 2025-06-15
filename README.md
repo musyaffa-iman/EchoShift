@@ -137,8 +137,8 @@ Game/
 - [`AudioManager.cs`](Assets/_Scripts/Game/AudioManager.cs) - Audio system
 
 ### Build Locations
-- Exports are stored in the [`Exports/`](Exports/) folder
-- Separate folders for Desktop and Mobile builds
+- Exports can be downloaded through the Releases
+- Separate tags for Desktop and Android builds
 
 ## API Integration
 
